@@ -30,6 +30,9 @@ Bu proje, otonom sürüş güvenliği ve akıllı ulaşım sistemleri için krit
 
 Raporda gerçekleştirilen 5 farklı deneyin karşılaştırmalı sonuçları aşağıdadır:
 
+> [!TIP]
+> Aşağıdaki tablodan eğitilmiş model ağırlıklarını doğrudan indirebilirsiniz. Uygulamayı çalıştırmadan önce ilgili `.pt` / `.pth` dosyasını proje klasörüne yerleştirmeniz gerekmektedir.
+
 
 | Model Mimarisi | Optimizer | Batch Size | mAP₅₀ (%) | Box Loss | İndir |
 |---|---|---|---|---|:---:|
@@ -76,23 +79,82 @@ Tüm veriler **CVAT** (Computer Vision Annotation Tool) üzerinden titizlikle et
 
 ## 📦 Kurulum ve Kullanım
 
-**1. Depoyu Klonlayın:**
+> [!NOTE]
+> Başlamadan önce sisteminizde **Python 3.8+** ve **pip**'in yüklü olduğundan emin olun. [Python'u buradan indirebilirsiniz.](https://www.python.org/downloads/)
+
+---
+
+### Adım 1 — Depoyu Klonlayın
+
+Aşağıdaki komutu terminalde çalıştırarak projeyi yerel makinenize kopyalayın, ardından proje klasörüne girin:
+
 ```bash
-git clone https://github.com/kullanici_adiniz/repo_adiniz.git
+git clone https://github.com/Femrei/Autonomous---Sign--Detection-.git
 cd Levha_Tespit_App
 ```
 
-**2. Gereksinimleri Yükleyin:**
+---
+
+### Adım 2 — (Önerilen) Sanal Ortam Oluşturun
+
+Bağımlılık çakışmalarını önlemek için bir Python sanal ortamı oluşturmanız önerilir:
+
+```bash
+# Sanal ortamı oluştur
+python -m venv venv
+
+# Sanal ortamı etkinleştir (Windows)
+venv\Scripts\activate
+
+# Sanal ortamı etkinleştir (macOS / Linux)
+source venv/bin/activate
+```
+
+---
+
+### Adım 3 — Gereksinimleri Yükleyin
+
+Projenin ihtiyaç duyduğu tüm kütüphaneleri tek komutla yükleyin:
+
 ```bash
 pip install streamlit ultralytics torch torchvision opencv-python Pillow albumentations
 ```
 
-**3. Uygulamayı Başlatın:**
+> [!TIP]
+> CUDA destekli bir GPU'nuz varsa PyTorch'un GPU sürümünü yüklemek performansı önemli ölçüde artırır. Detaylar için: [pytorch.org/get-started](https://pytorch.org/get-started/locally/)
+
+---
+
+### Adım 4 — Model Ağırlıklarını İndirin
+
+Uygulamayı çalıştırmak için en az **bir** model dosyasını indirip proje klasörüne (`Levha_Tespit_App/`) kopyalamanız **zorunludur**.
+
+Başlangıç için **YOLOv11n** modelini (`model_v11.pt`) indirmeniz önerilir; en yüksek doğruluk oranını bu model sunar.
+
+| Model | Açıklama | İndir |
+|---|---|:---:|
+| **YOLOv11n** ⭐ *(Önerilen)* | En yüksek mAP (%99.5), hızlı yakınsama | [⬇️ İndir](https://github.com/Femrei/Autonomous---Sign--Detection-/releases/download/v1.0.0/model_v11.pt) |
+| YOLOv8n – AdamW Batch 16 | En düşük box loss (0.22), stabil | [⬇️ İndir](https://github.com/Femrei/Autonomous---Sign--Detection-/releases/download/v1.0.0/model_v8_batch16.pt) |
+| YOLOv8n – AdamW Batch 8 | Daha küçük batch, düşük VRAM kullanımı | [⬇️ İndir](https://github.com/Femrei/Autonomous---Sign--Detection-/releases/download/v1.0.0/model_v8_batch8.pt) |
+| YOLOv8n – SGD | SGD optimizer ile eğitilmiş alternatif | [⬇️ İndir](https://github.com/Femrei/Autonomous---Sign--Detection-/releases/download/v1.0.0/model_v8_sgd.pt) |
+| Faster R-CNN | İki aşamalı mimari, karşılaştırma amaçlı | [⬇️ İndir](https://github.com/Femrei/Autonomous---Sign--Detection-/releases/download/v1.0.0/faster_rcnn.pth) |
+
+> [!IMPORTANT]
+> İndirilen `.pt` veya `.pth` dosyasını, `app5_son.py` ile **aynı klasörün içine** (`Levha_Tespit_App/`) kopyaladığınızdan emin olun. Aksi takdirde uygulama modeli bulamaz.
+
+---
+
+### Adım 5 — Uygulamayı Başlatın
+
+Her şey hazır olduğunda aşağıdaki komutla Streamlit arayüzünü başlatın:
+
 ```bash
 streamlit run app5_son.py
 ```
 
+Komut çalıştıktan sonra tarayıcınız otomatik olarak açılacak ve uygulama `http://localhost:8501` adresinde kullanıma hazır olacaktır.
 ---
+
 
 ## 👤 Hazırlayan
 
