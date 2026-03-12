@@ -57,6 +57,10 @@ Eğitim sürecinde kullanılan veri seti şu **5 ana sınıfı** kapsamaktadır:
 
 Tüm veriler **CVAT** (Computer Vision Annotation Tool) üzerinden titizlikle etiketlenmiş ve eğitim süreci **NVIDIA T4 GPU** donanımı kullanılarak **Google Colab** ortamında tamamlanmıştır.
 
+
+>
+>![Ekran görüntüsü_12-3-2026_16251_](https://github.com/user-attachments/assets/171b7f43-116f-4d3d-9b81-fbc947b29f34)
+
 ---
 
 ## 🚀 Kullanılan Teknolojiler
